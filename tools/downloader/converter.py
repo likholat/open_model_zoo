@@ -72,7 +72,7 @@ def num_jobs_arg(value_str):
 
     raise argparse.ArgumentTypeError('must be a positive integer or "auto" (got {!r})'.format(value_str))
 
-def main():
+def main(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument('-d', '--download_dir', type=Path, metavar='DIR',
         default=Path.cwd(), help='root of the directory tree with downloaded model files')
@@ -101,7 +101,7 @@ def main():
     parser.add_argument('--add-mo-arg', dest='extra_mo_args', action='append', help=argparse.SUPPRESS)
     parser.add_argument('--dry-run', action='store_true', help=argparse.SUPPRESS)
 
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     mo_path = args.mo
     if mo_path is None:
@@ -201,4 +201,4 @@ def main():
         sys.exit(1)
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv[1:])
